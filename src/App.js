@@ -24,7 +24,6 @@ class App extends Component {
     this.setupFarmerAndApple();
     this.movementListener();
   }
-
   // Set Grid Size
   getBasicGridSize() {
     let columns = parseInt(
@@ -52,7 +51,7 @@ class App extends Component {
     });
   }
   numberWithinGridSize() {
-    return Math.round(Math.random() * this.state.gridSize);
+    return Math.round(Math.random() * this.state.gridSize-1);
   }
   setupFarmerAndApple() {
     const maxApple = Math.max(this.state.columns, this.state.rows);
@@ -115,7 +114,6 @@ class App extends Component {
       })
       this.isGameOver()
     }
-    console.log(this.state)
   }
 
   isGameOver() {
