@@ -5,16 +5,19 @@ import Cell from "./components/Cell";
 
 class App extends Component {
   // State Declaraction
-  state = {
+    state = {
     rows: 0,
     columns: 0,
     gridSize: 0,
     currentCells: [],
     currentPosition: 0
   };
+
   componentWillMount() {
     this.getBasicGridSize();
-    this.setupFarmerAndApple()
+  }
+  componentDidMount() {
+    this.setupFarmerAndApple();
   }
 
   // Set Grid Size
@@ -42,22 +45,13 @@ class App extends Component {
       columns,
       gridSize,
     });
-    const farmerCell = this.numberWithinGridSize();
-
-    const cells = Array(gridSize).fill(null);
-
-    cells[farmerCell] = <div className="cells">farmer</div>;
-
-    this.setState({
-      currentCells: cells,
-      currentPosition: farmerCell
-    })
   }
   numberWithinGridSize() {
-   return Math.round(Math.random() * this.state.gridSize);
+    return Math.round(Math.random() * this.state.gridSize);
   }
   setupFarmerAndApple() {
-    
+    const maxApple = Math.max(this.state.columns, this.state.rows);
+
     const gridSize = this.state.gridSize;
 
     const farmerCell = this.numberWithinGridSize();
@@ -66,10 +60,18 @@ class App extends Component {
 
     cells[farmerCell] = <div className="cells">farmer</div>;
 
+    const appleCellIndexes = Array(maxApple)
+      .fill(null)
+      .map(() => this.numberWithinGridSize());
+
+    appleCellIndexes.forEach(
+      (cell) => (cells[cell] = <div className="cells">fruit</div>)
+    );
+
     this.setState({
       currentCells: cells,
-      currentPosition: farmerCell
-    })
+      currentPosition: farmerCell,
+    });
   }
 
   renderGrid() {
@@ -89,7 +91,11 @@ class App extends Component {
     const rowIndex = currentRow * cols;
 
     return dummyArray.map((cell, index) => (
-      <Cell key={rowIndex + index} value={this.state.currentCells[rowIndex + index]} className="cell"/>
+      <Cell
+        key={rowIndex + index}
+        value={this.state.currentCells[rowIndex + index]}
+        className="cell"
+      />
     ));
   }
 
