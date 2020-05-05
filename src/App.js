@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import Cell from "./components/Cell";
 import Fruit from "./components/Fruit";
+import Farmer from "./components/Farmer";
 
 class App extends Component {
   // State Declaraction
@@ -59,7 +60,7 @@ class App extends Component {
 
     const cells = Array(gridSize).fill(null);
 
-    cells[farmerCell] = <div className="cells">farmer</div>;
+    cells[farmerCell] = <Farmer/>;
 
     const appleCellIndexes = Array(maxApple)
       .fill(null)
