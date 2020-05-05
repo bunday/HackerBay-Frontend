@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Cell from "./components/Cell";
+import Fruit from "./components/Fruit";
 
 class App extends Component {
   // State Declaraction
@@ -65,7 +66,7 @@ class App extends Component {
       .map(() => this.numberWithinGridSize());
 
     appleCellIndexes.forEach(
-      (cell) => (cells[cell] = <div className="cells">fruit</div>)
+      (cell) => (cells[cell] = <Fruit/>)
     );
 
     this.setState({
