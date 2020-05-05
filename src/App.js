@@ -102,7 +102,7 @@ class App extends Component {
   }
   moveFarmer(currentPosition){
     let currentCells = this.state.currentCells;
-    if(currentPosition < currentCells.length) {
+    if(currentPosition > -1 && currentPosition < currentCells.length) {
       currentCells[currentPosition] = <Farmer/>
       currentCells[this.state.currentPosition] = null;
       this.setState({
