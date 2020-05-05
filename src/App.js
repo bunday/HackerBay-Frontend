@@ -29,6 +29,19 @@ class App extends Component {
     })
   }
 
+  renderGrid() {
+    const rows = this.state.rows;
+    const dummyArray = Array(rows).fill();
+
+    return dummyArray.map((row, currentIndex) => 
+      <div key={currentIndex} className="row">
+        <div className="cell"> cell 1</div>
+            <div className="cell"> cell 2</div>
+            <div className="cell"> cell 3</div>
+         </div>
+    );
+  }
+
 
   render() {
     return (
@@ -36,11 +49,7 @@ class App extends Component {
         <h2> HackerBay Frontend Test by Zadat Olayinka</h2>
 
         <div className="grid">
-          <div className="row">
-            <div className="cell"> cell 1</div>
-            <div className="cell"> cell 2</div>
-            <div className="cell"> cell 3</div>
-          </div>
+          { this.renderGrid()}
         </div>
       </div>
     );
