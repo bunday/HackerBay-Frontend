@@ -7,12 +7,12 @@ import Farmer from "./components/Farmer";
 
 class App extends Component {
   // State Declaraction
-    state = {
+  state = {
     rows: 0,
     columns: 0,
     gridSize: 0,
     currentCells: [],
-    currentPosition: 0
+    currentPosition: 0,
   };
 
   componentWillMount() {
@@ -20,6 +20,7 @@ class App extends Component {
   }
   componentDidMount() {
     this.setupFarmerAndApple();
+    this.movementListener();
   }
 
   // Set Grid Size
@@ -56,26 +57,59 @@ class App extends Component {
 
     const gridSize = this.state.gridSize;
 
-
     const cells = Array(gridSize).fill(null);
-
 
     const appleCellIndexes = Array(maxApple)
       .fill(null)
       .map(() => this.numberWithinGridSize());
 
-    appleCellIndexes.forEach(
-      (cell) => (cells[cell] = <Fruit/>)
-    );
+    appleCellIndexes.forEach((cell) => (cells[cell] = <Fruit />));
 
     const farmerCell = this.numberWithinGridSize();
 
-    cells[farmerCell] = <Farmer/>;
+    cells[farmerCell] = <Farmer />;
 
     this.setState({
       currentCells: cells,
       currentPosition: farmerCell,
     });
+  }
+  movementListener() {
+    document.addEventListener(
+      "keydown",
+      (event) => {
+        event.preventDefault();
+
+        switch (event.key) {
+          case "ArrowLeft":
+            this.moveFarmer(this.state.currentPosition - 1);
+            break;
+          case "ArrowRight":
+            this.moveFarmer(this.state.currentPosition + 1);
+            break;
+          case "ArrowUp":
+            this.moveFarmer(this.state.currentPosition - this.state.columns);
+            break;
+          case "ArrowDown":
+            this.moveFarmer(this.state.currentPosition + this.state.columns);
+            break;
+          default:
+            break;
+        }
+      },
+      false
+    );
+  }
+  moveFarmer(currentPosition){
+    let currentCells = this.state.currentCells;
+    if(currentPosition < currentCells.length) {
+      currentCells[currentPosition] = <Farmer/>
+      currentCells[this.state.currentPosition] = null;
+      this.setState({
+        currentCells,
+        currentPosition
+      })
+    }
   }
 
   renderGrid() {
