@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-import Cell from "./components/Cell";
 import Fruit from "./components/Fruit";
 import Farmer from "./components/Farmer";
 import Grid from "./components/Grid";
