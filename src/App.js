@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import Cell from "./components/Cell";
 
 class App extends Component {
   // State Declaraction
@@ -8,9 +9,12 @@ class App extends Component {
     rows: 0,
     columns: 0,
     gridSize: 0,
+    currentCells: [],
+    currentPosition: 0
   };
   componentWillMount() {
     this.getBasicGridSize();
+    this.setupFarmerAndApple()
   }
 
   // Set Grid Size
@@ -38,6 +42,34 @@ class App extends Component {
       columns,
       gridSize,
     });
+    const farmerCell = this.numberWithinGridSize();
+
+    const cells = Array(gridSize).fill(null);
+
+    cells[farmerCell] = <div className="cells">farmer</div>;
+
+    this.setState({
+      currentCells: cells,
+      currentPosition: farmerCell
+    })
+  }
+  numberWithinGridSize() {
+   return Math.round(Math.random() * this.state.gridSize);
+  }
+  setupFarmerAndApple() {
+    
+    const gridSize = this.state.gridSize;
+
+    const farmerCell = this.numberWithinGridSize();
+
+    const cells = Array(gridSize).fill(null);
+
+    cells[farmerCell] = <div className="cells">farmer</div>;
+
+    this.setState({
+      currentCells: cells,
+      currentPosition: farmerCell
+    })
   }
 
   renderGrid() {
@@ -57,12 +89,7 @@ class App extends Component {
     const rowIndex = currentRow * cols;
 
     return dummyArray.map((cell, index) => (
-      <div
-        key={rowIndex + index}
-        className="cell"
-      >
-       
-      </div>
+      <Cell key={rowIndex + index} value={this.state.currentCells[rowIndex + index]} className="cell"/>
     ));
   }
 
