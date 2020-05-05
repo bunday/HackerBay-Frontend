@@ -123,7 +123,6 @@ class App extends Component {
   isGameOver() {
     const cells = this.state.currentCells.filter((cell) => cell !== null);
     if (cells.length === 1) {
-      alert("Game over, Total number of Steps is: " + this.state.steps);
       this.setState({ isGameOver: true });
     }
   }
