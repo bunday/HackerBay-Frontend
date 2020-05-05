@@ -13,6 +13,7 @@ class App extends Component {
     gridSize: 0,
     currentCells: [],
     currentPosition: 0,
+    steps: 0,
   };
 
   componentWillMount() {
@@ -105,10 +106,21 @@ class App extends Component {
     if(currentPosition > -1 && currentPosition < currentCells.length) {
       currentCells[currentPosition] = <Farmer/>
       currentCells[this.state.currentPosition] = null;
+      const steps = this.state.steps + 1;
       this.setState({
         currentCells,
-        currentPosition
+        currentPosition,
+        steps
       })
+      this.isGameOver()
+    }
+  }
+
+  isGameOver() {
+    const cells = this.state.currentCells.filter(cell => cell !== null);
+    if(cells.length === 1) {
+      alert('Game over, Total number of Steps is: '+this.state.steps)
+      
     }
   }
 
