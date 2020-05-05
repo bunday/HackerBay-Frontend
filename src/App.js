@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Cell from "./components/Cell";
 import Fruit from "./components/Fruit";
 import Farmer from "./components/Farmer";
+import Grid from "./components/Grid";
 
 class App extends Component {
   // State Declaraction
@@ -14,7 +14,7 @@ class App extends Component {
     currentCells: [],
     currentPosition: 0,
     steps: 0,
-    isGameOver: false
+    isGameOver: false,
   };
 
   componentWillMount() {
@@ -51,7 +51,7 @@ class App extends Component {
     });
   }
   numberWithinGridSize() {
-    return Math.round(Math.random() * this.state.gridSize-1);
+    return Math.round(Math.random() * this.state.gridSize - 1);
   }
   setupFarmerAndApple() {
     const maxApple = Math.max(this.state.columns, this.state.rows);
@@ -66,7 +66,7 @@ class App extends Component {
 
     appleCellIndexes.forEach((cell) => (cells[cell] = <Fruit />));
 
-    const farmerCell = Math.floor(this.state.gridSize/2);
+    const farmerCell = Math.floor(this.state.gridSize / 2);
 
     cells[farmerCell] = <Farmer />;
 
@@ -101,57 +101,36 @@ class App extends Component {
       false
     );
   }
-  moveFarmer(currentPosition){
+  moveFarmer(currentPosition) {
     let currentCells = this.state.currentCells;
-    if(currentPosition > -1 && currentPosition < currentCells.length && !this.state.isGameOver) {
-      currentCells[currentPosition] = <Farmer/>
+    if (
+      currentPosition > -1 &&
+      currentPosition < currentCells.length &&
+      !this.state.isGameOver
+    ) {
+      currentCells[currentPosition] = <Farmer />;
       currentCells[this.state.currentPosition] = null;
       const steps = this.state.steps + 1;
       this.setState({
         currentCells,
         currentPosition,
-        steps
-      })
-      this.isGameOver()
+        steps,
+      });
+      this.isGameOver();
     }
   }
 
   isGameOver() {
-    const cells = this.state.currentCells.filter(cell => cell !== null);
-    if(cells.length === 1) {
-      alert('Game over, Total number of Steps is: '+this.state.steps)
-      this.setState({ isGameOver: true})
+    const cells = this.state.currentCells.filter((cell) => cell !== null);
+    if (cells.length === 1) {
+      alert("Game over, Total number of Steps is: " + this.state.steps);
+      this.setState({ isGameOver: true });
     }
-  }
-
-  renderGrid() {
-    const rows = this.state.rows;
-    const dummyArray = Array(rows).fill();
-
-    return dummyArray.map((row, currentIndex) => (
-      <div key={currentIndex} className="row">
-        {this.renderCells(currentIndex)}
-      </div>
-    ));
-  }
-  renderCells(currentRow) {
-    const cols = this.state.columns;
-    const dummyArray = Array(cols).fill();
-
-    const rowIndex = currentRow * cols;
-
-    return dummyArray.map((cell, index) => (
-      <Cell
-        key={rowIndex + index}
-        value={this.state.currentCells[rowIndex + index]}
-        className="cell"
-      />
-    ));
   }
 
   renderResult() {
     if (this.state.isGameOver) {
-      return (`Game ended with ${this.state.steps} steps 🎉`)
+      return `Game ended with ${this.state.steps} steps 🎉`;
     }
   }
   render() {
@@ -159,7 +138,11 @@ class App extends Component {
       <div className="App">
         <h2 className="title"> HackerBay Frontend Test by Zadat Olayinka</h2>
 
-        <div className="grid">{this.renderGrid()}</div>
+        <Grid
+          rows={this.state.rows}
+          columns={this.state.columns}
+          currentCells={this.state.currentCells}
+        />
         <div className="title"> {this.renderResult()}</div>
       </div>
     );
