@@ -14,6 +14,7 @@ class App extends Component {
     currentCells: [],
     currentPosition: 0,
     steps: 0,
+    isGameOver: false
   };
 
   componentWillMount() {
@@ -66,7 +67,7 @@ class App extends Component {
 
     appleCellIndexes.forEach((cell) => (cells[cell] = <Fruit />));
 
-    const farmerCell = this.numberWithinGridSize();
+    const farmerCell = this.state.gridSize/2;
 
     cells[farmerCell] = <Farmer />;
 
@@ -103,7 +104,7 @@ class App extends Component {
   }
   moveFarmer(currentPosition){
     let currentCells = this.state.currentCells;
-    if(currentPosition > -1 && currentPosition < currentCells.length) {
+    if(currentPosition > -1 && currentPosition < currentCells.length && !this.state.isGameOver) {
       currentCells[currentPosition] = <Farmer/>
       currentCells[this.state.currentPosition] = null;
       const steps = this.state.steps + 1;
@@ -114,13 +115,14 @@ class App extends Component {
       })
       this.isGameOver()
     }
+    console.log(this.state)
   }
 
   isGameOver() {
     const cells = this.state.currentCells.filter(cell => cell !== null);
     if(cells.length === 1) {
       alert('Game over, Total number of Steps is: '+this.state.steps)
-      
+      this.setState({ isGameOver: true})
     }
   }
 
@@ -152,7 +154,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h2> HackerBay Frontend Test by Zadat Olayinka</h2>
+        <h2 className="title"> HackerBay Frontend Test by Zadat Olayinka</h2>
 
         <div className="grid">{this.renderGrid()}</div>
       </div>
