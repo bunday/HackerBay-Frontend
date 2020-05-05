@@ -29,11 +29,19 @@ class App extends Component {
     })
   }
 
-  
+
   render() {
     return (
       <div className="App">
         <h2> HackerBay Frontend Test by Zadat Olayinka</h2>
+
+        <div className="grid">
+          <div className="row">
+            <div className="cell"> cell 1</div>
+            <div className="cell"> cell 2</div>
+            <div className="cell"> cell 3</div>
+          </div>
+        </div>
       </div>
     );
   }
