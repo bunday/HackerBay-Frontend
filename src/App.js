@@ -66,7 +66,7 @@ class App extends Component {
 
     appleCellIndexes.forEach((cell) => (cells[cell] = <Fruit />));
 
-    const farmerCell = this.state.gridSize/2;
+    const farmerCell = Math.floor(this.state.gridSize/2);
 
     cells[farmerCell] = <Farmer />;
 
@@ -74,6 +74,7 @@ class App extends Component {
       currentCells: cells,
       currentPosition: farmerCell,
     });
+    console.log(cells);
   }
   movementListener() {
     document.addEventListener(
@@ -149,12 +150,18 @@ class App extends Component {
     ));
   }
 
+  renderResult() {
+    if (this.state.isGameOver) {
+      return (`Game ended with ${this.state.steps} steps 🎉`)
+    }
+  }
   render() {
     return (
       <div className="App">
         <h2 className="title"> HackerBay Frontend Test by Zadat Olayinka</h2>
 
         <div className="grid">{this.renderGrid()}</div>
+        <div className="title"> {this.renderResult()}</div>
       </div>
     );
   }
