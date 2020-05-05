@@ -56,11 +56,9 @@ class App extends Component {
 
     const gridSize = this.state.gridSize;
 
-    const farmerCell = this.numberWithinGridSize();
 
     const cells = Array(gridSize).fill(null);
 
-    cells[farmerCell] = <Farmer/>;
 
     const appleCellIndexes = Array(maxApple)
       .fill(null)
@@ -69,6 +67,10 @@ class App extends Component {
     appleCellIndexes.forEach(
       (cell) => (cells[cell] = <Fruit/>)
     );
+
+    const farmerCell = this.numberWithinGridSize();
+
+    cells[farmerCell] = <Farmer/>;
 
     this.setState({
       currentCells: cells,
