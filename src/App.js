@@ -74,7 +74,6 @@ class App extends Component {
       currentCells: cells,
       currentPosition: farmerCell,
     });
-    console.log(cells);
   }
   movementListener() {
     document.addEventListener(
